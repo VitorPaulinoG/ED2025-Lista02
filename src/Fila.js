@@ -1,47 +1,58 @@
 class Fila {
-    constructor(size = 5) {
-        this.dados = [];
-        this.size = size;
-        this.inicio = 0;
-        this.fim = 0;
+  constructor(size = 5) {
+    this.size = size;
+    this.dados = [];
+    this.start = 0;
+    this.end = 0;
+  }
+
+  enqueue(elemento) {
+    if(this.isFull()) throw new Error("Queue Overflow");
+    this.dados[this.end] = elemento;
+    if(this.end === this.size - 1) {
+      this.end = 0;
+      return;
     }
 
-    enqueue(elemento) {
-        if (this.isFull()) throw new Error("Queue overflow");
-        this.dados[this.fim] = elemento;
-        if (this.fim === this.size) {
-            this.fim = 0;
-        } else {
-            this.fim++;
-        }
+    this.end++;
+  }
+
+  dequeue() {
+    if(this.isEmpty()) throw new Error("Queue Underflow");
+    let result = this.front();
+    if(this.start === this.size - 1) {
+      this.start = 0;
+    } else {
+      this.start++;
     }
-    dequeue() {
-        if (this.isEmpty()) throw new Error("Queue underflow");
-        if (this.inicio === this.size) {
-            this.inicio = 0;
-        } else {
-            this.inicio++;
-        }
+    return result;
+  }
+
+  front() {
+    if(this.isEmpty()) throw new Error("Queue Underflow");
+    return this.dados[this.start];
+  }
+
+  isEmpty() {
+    return this.length() === 0;
+  }
+  isFull() {
+    return this.length() === this.size - 1;
+  }
+  clear() {
+    this.start = 0;
+    this.end = 0;
+  }
+  length() {
+    if(this.start <= this.end) return this.end - this.start;
+    return this.size - this.start + this.end;
+  }
+  toString() {
+    let result = '';
+    for (let i = this.start; i < this.start + this.length(); i++) {
+      result += this.dados[i % this.size] + ' ';
     }
-    front() {
-        if (!this.isEmpty()) return this.dados[this.inicio];
-    }
-    length() {
-        if (this.isEmpty()) return 0;
-        if (this.inicio < this.fim) return this.fim - this.inicio;
-        return ((this.size + 1 - this.inicio) + (this.fim - 0));
-    }
-    isEmpty() {
-        return this.inicio === this.fim;
-    }
-    isFull() {
-        return this.length() === this.size;
-    }
-    toString() { }
-    clear() {
-        this.inicio = 0;
-        this.fim = 0;
-    }
+    return result.trim();
+  }
 }
-
 export default Fila;
