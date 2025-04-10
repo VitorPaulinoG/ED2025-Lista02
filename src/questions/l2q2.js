@@ -1,6 +1,6 @@
 import Pilha from "../Pilha";
 
-class Fila {
+class FilaDePilhas {
   constructor (size = 5) {
     this.size = size;
     this.dados = new Pilha(size);
@@ -65,4 +65,4 @@ class Fila {
   }
 }
 
-export default Fila;
+export default FilaDePilhas;
