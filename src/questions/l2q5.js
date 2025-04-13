@@ -28,34 +28,38 @@ class Deque {
     
     removeFirst() {
         if(this.isEmpty()) throw new Error("Deque Underflow");
-        let result = this.dados[this.head + 1];
         if(this.head === this.size - 1) {
+            let result = this.dados[0];
             this.head = 0;
+            return result;
         } else {
+            let result = this.dados[this.head + 1]
             this.head++;
+            return result;
         }
-        return result;
     }
     
     removeLast() {
         if(this.isEmpty()) throw new Error("Deque Underflow");
-        let result = this.dados[this.tail - 1];
         if(this.tail === 0) {
+            let result = this.dados[this.size - 1] 
             this.tail = this.size - 1;
+            return result;
         } else {
+            let result = this.dados[this.tail - 1];
             this.tail--;
+            return result;
         }
-        return result;
     }
 
     peekFirst() {
         if(this.isEmpty()) throw new Error("Deque Underflow");
-        return this.dados[this.head + 1];
+        return this.dados[(this.head < this.size - 1)? this.head + 1: 0];
     }
 
     peekLast() {
         if(this.isEmpty()) throw new Error("Deque Underflow");
-        return this.dados[this.tail - 1];
+        return this.dados[(this.tail > 0)? this.tail - 1 : this.size - 1];
     }
 
     isEmpty() {
